@@ -1,0 +1,34 @@
+--- 
+spots:
+  start:
+    output: |
+      Welcome at the start. 
+      You can enter the building or walk to the lake. 
+    options: 
+      building:
+        - .*?building.*?
+      lake:
+        - lake
+        - goto lake
+        - walk to lake
+        - walk to the lake
+  building: 
+    output: |
+      You're in the building. There are stairs to your left and a elevator to your right.
+    options: 
+      building-stairs:
+        - stairs
+        - goto stairs
+        - go left
+      building-elevator:
+        - elevator
+        - goto elevator
+        - go right
+  building-elevator:
+    output: |
+      Elevator music is playing while your going up...
+unknown:
+  - Sorry I don't understand
+  - What now?
+  - Please try again
+...

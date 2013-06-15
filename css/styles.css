@@ -1,0 +1,23 @@
+body {
+	background: #333;
+}
+#textadventure {
+	background: #000;
+	position: absolute;
+	bottom: 0;
+	width: 20em;
+	height: 20em;
+  }
+  #textadventure #ouput {
+  	overflow-x: none;
+  	overflow-y: auto;
+  	width: 100%;
+  	height: 18em;
+  	
+  	color: #aaa;
+  	padding: 0 0.5em;
+  }
+  #textadventure #input {
+  	width: 19.6em;
+  	height: 2em;
+  }
