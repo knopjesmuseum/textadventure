@@ -7,11 +7,8 @@ var terminal = new Terminal();
 $( document ).ready(function() {
   console.log( "ready!" );
   
-  input = $('#textadventure #input');
-  input.keyup(keyup);
-
-  terminal.container = $('#textadventure #ouput');
-	
+  terminal.container = $('#textadventure');
+	terminal.init();
 	$.ajax({
     url : "data/textAdventure.yaml",
     dataType: "text",
@@ -29,22 +26,13 @@ $( document ).ready(function() {
   });
   
   $(document).on(textAdventure.OUTPUT_EVENT,handleOutput);
+  $(document).on(terminal.INPUT_EVENT,handleInput);
 });
 
-function keyup(event) {
-	//console.log('keyup: ' + event.keyCode);
-	switch(event.keyCode) {
-		case 13: // enter
-			submit();
-			break;
-	}
-}
-
-function submit() {
-	var inputValue = $(input).val();
-	textAdventure.input(inputValue);
-	$(input).val('');
+function handleInput(event,text) {
+	textAdventure.input(text);
 }
 function handleOutput(event,text) {
+	console.log("handleOutput: ",text);
 	terminal.print(text);
 }

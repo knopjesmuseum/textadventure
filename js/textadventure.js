@@ -31,6 +31,7 @@ function TextAdventure() {
 	// PRIVATE
 	this.goto = function(spot) {
 		console.log("goto spot: ",spot);
+		console.log("  this.spotsData[spot]: ",this.spotsData[spot]);
 		if(this.spotsData[spot] == undefined) {
 	  	this.outputError("There is no spot called '"+spot+"'");
 		} else {
@@ -41,12 +42,16 @@ function TextAdventure() {
 	  }
 	}
 	this.outputUnknown = function() {
-		var randomIndex = Math.round(Math.random()*this.unkownTexts.length);
+		console.log("outputUnknown");
+		var randomIndex = Math.round(Math.random()*(this.unkownTexts.length-1));
+		console.log("randomIndex: ",randomIndex);
+		console.log("this.unkownTexts.length: ",this.unkownTexts.length);
 		var randomUnknown = this.unkownTexts[randomIndex];
+		console.log("randomUnknown: ",randomUnknown);
 		this.output(randomUnknown);
 	}
 	this.outputError = function(text) {
-		this.output('Error: '.text);
+		this.output('Error: '+text);
 	}
 	this.output = function(text) {
 		$(document).trigger(this.OUTPUT_EVENT,text);
