@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Text Adventure</title>
+  <meta name="description" content="The HTML5 Herald">
+  <meta name="author" content="Spullenmannen">
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <script src="js/jquery-1.10.1.min.js" type="text/javascript"></script>
+  <style>
+	  #textadventure {
+	  	overflow-y: auto;
+	  	overflow-x: hidden;
+	  	}
+	  	#textadventure div {
+		  	width: 20em;
+		  	height: 2em;
+		  	background: rgb(0, 133, 255);
+		  	margin: 0 0 0.5em 0;
+		  	padding: 0 0 0 0.5em;
+		  }
+  </style>
+  <script>
+var counter = 0;
+var textadventure;
+$( document ).ready(function() {
+  textadventure = $("#textadventure");
+	$(document).click(function(event) {
+    counter++;
+		textadventure.append('<div>'+counter+'</div>')
+		//textadventure.scrollTop = 20; //textadventure.scrollHeight;
+		textadventure.scrollTop(textadventure.prop('scrollHeight'));
+
+	});
+});
+
+  </script>
+</head>
+<body>
+	<section id="textadventure">
+		<div></div>
+		
+	</section>
+</body>
+</html>
