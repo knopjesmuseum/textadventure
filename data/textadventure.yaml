@@ -1,10 +1,10 @@
 --- 
-spots:
+locations:
   start:
     output: |
       Welcome at the start. 
       You can enter the building or walk to the lake. 
-    options: 
+    exits: 
       building:
         - .*?building.*?
       lake:
@@ -15,7 +15,7 @@ spots:
   building: 
     output: |
       You're in the building. There are stairs to your left and a elevator to your right.
-    options: 
+    exits: 
       building-stairs:
         - stairs
         - goto stairs
@@ -27,8 +27,9 @@ spots:
   building-elevator:
     output: |
       Elevator music is playing while your going up...
-unknown:
-  - Sorry I don't understand
-  - What now?
-  - Please try again
+messages:
+  unknown:
+    - Sorry I don't understand
+    - What now?
+    - Please try again
 ...

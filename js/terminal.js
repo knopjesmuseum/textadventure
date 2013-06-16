@@ -1,6 +1,6 @@
 function Terminal() {
 	this.container; 			// DOM element to contain the terminal
-	this.printDelay = 20; 			// DOM element to contain the terminal
+	this.printDelay = 10; 			// DOM element to contain the terminal
 	this.inputPrefix = "> ";
 	this.inputSuffix = "_";
 	
@@ -49,7 +49,6 @@ function Terminal() {
 		this.inputEnabled = true;
 	}
 	this.printInput = function(text) {
-		console.log("printInput: ",text);
 		currentLine.text(this.inputPrefix + text + this.inputSuffix);
 		this.container.scrollTop(this.container.prop('scrollHeight'));
 	}
@@ -87,7 +86,7 @@ function Terminal() {
 	this.submitInput = function() {
 		var currentInput = this.getInput();
 		if(currentInput == "") return;
-		console.log("submit: ",currentInput);
+		console.log("submit: '"+currentInput+"'");
 		$(document).trigger(this.INPUT_EVENT,currentInput);
 	}
 }

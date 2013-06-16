@@ -1,52 +1,53 @@
 function TextAdventure() {
-	this.spotsData; 			// json spots data
-	this.unkownTexts;			// array containing possible responses to input we can't handle
-	this.currentSpot;			// name of current spot
+	this.locationsData; 		// json locations data
+	this.unkownMessages;	  // array containing possible responses to input we can't handle
+	this.currentLocation; 	// name of current spot
 
 	this.OUTPUT_EVENT = "output";
 	
 	// PUBLIC
 	this.input = function(text) {
 		console.log('TextAdventure:input: ',text);
-		var currentSpotData = this.spotsData[this.currentSpot];
-		var validOption;
-		var self = this;
-		$.each(currentSpotData.options,function(option,value) {
-			console.log("  checking option: ",option);
-			$.each(value,function(index,optionInput) {
-		  	console.log("    checking optionInput: ",optionInput);
-		  	if(self.isMatch(text,optionInput)) {
-		  		validOption = option;
-		  		return false;
-		  	}
+		var currentLocationData = this.locationsData[this.currentLocation];
+		var validExit;
+
+		// check exits
+		if(currentLocationData.exits != undefined) {
+			var self = this;
+			$.each(currentLocationData.exits,function(exit,content) {
+				console.log("  checking exit: ",exit);
+				$.each(content,function(index,exitCommand) {
+			  	console.log("    checking exitCommand: ",exitCommand);
+			  	if(self.isMatch(text,exitCommand)) {
+			  		validExit = exit;
+			  		return false;
+			  	}
+				});
 			});
-		});
-		if(validOption == undefined) {
+		}
+		if(validExit == undefined) {
 		  this.outputUnknown();
 		} else {
-		  this.goto(validOption);
+		  this.goto(validExit);
 		}
 	}
 	
 	// PRIVATE
-	this.goto = function(spot) {
-		console.log("goto spot: ",spot);
-		console.log("  this.spotsData[spot]: ",this.spotsData[spot]);
-		if(this.spotsData[spot] == undefined) {
-	  	this.outputError("There is no spot called '"+spot+"'");
+	this.goto = function(location) {
+		console.log("goto location: ",location);
+		if(this.locationsData[location] == undefined) {
+	  	this.outputError("There is no location called '"+location+"'");
 		} else {
-	    this.currentSpotData = this.spotsData[spot];
-	  	console.log("  data: ",this.currentSpotData);
-	  	this.output(this.currentSpotData.output);
-	    this.currentSpot = spot;
+	    var currentLocationData = this.locationsData[location];
+	  	console.log("  data: ",currentLocationData);
+	  	this.output(currentLocationData.output);
+	    this.currentLocation = location;
 	  }
 	}
 	this.outputUnknown = function() {
 		console.log("outputUnknown");
-		var randomIndex = Math.round(Math.random()*(this.unkownTexts.length-1));
-		console.log("randomIndex: ",randomIndex);
-		console.log("this.unkownTexts.length: ",this.unkownTexts.length);
-		var randomUnknown = this.unkownTexts[randomIndex];
+		var randomIndex = Math.round(Math.random()*(this.unkownMessages.length-1));
+		var randomUnknown = this.unkownMessages[randomIndex];
 		console.log("randomUnknown: ",randomUnknown);
 		this.output(randomUnknown);
 	}

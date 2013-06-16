@@ -16,8 +16,8 @@ $( document ).ready(function() {
       //console.log("data: ",data);
       textAdventureData = YAML.parse(data);
       console.log("data: ",textAdventureData);
-      textAdventure.spotsData = textAdventureData.spots;
-      textAdventure.unkownTexts = textAdventureData.unknown;
+      textAdventure.locationsData = textAdventureData.locations;
+      textAdventure.unkownMessages = textAdventureData.messages.unknown;
       textAdventure.goto("start");
     },
     error : function (data) {
