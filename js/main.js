@@ -10,7 +10,7 @@ $( document ).ready(function() {
   terminal.container = $('#textadventure');
 	terminal.init();
 	$.ajax({
-    url : "data/textAdventure.yaml",
+    url : "data/textadventure.yaml",
     dataType: "text",
     success : function (data) {
       //console.log("data: ",data);
