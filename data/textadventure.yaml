@@ -15,6 +15,9 @@ locations:
   building: 
     output: |
       You're in the building. There are stairs to your left and a elevator to your right.
+    onEnter: |
+      alert("welcome in the building "+new Date().getFullYear())
+      console.log(this);
     exits: 
       building-stairs:
         - stairs
@@ -24,6 +27,8 @@ locations:
         - elevator
         - goto elevator
         - go right
+      start:
+        - .*?back
   building-elevator:
     output: |
       Elevator music is playing while your going up...

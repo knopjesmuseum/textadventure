@@ -3,6 +3,7 @@ function TextAdventure() {
 	this.unkownMessages;	  // array containing possible responses to input we can't handle
 	this.currentLocation; 	// name of current spot
 
+	this.data;
 	this.OUTPUT_EVENT = "output";
 	
 	// PUBLIC
@@ -39,8 +40,16 @@ function TextAdventure() {
 	  	this.outputError("There is no location called '"+location+"'");
 		} else {
 	    var currentLocationData = this.locationsData[location];
+	    
 	  	console.log("  data: ",currentLocationData);
+	  	if(currentLocationData.output == undefined)
+	  		currentLocationData.output = "";
 	  	this.output(currentLocationData.output);
+	  	
+	  	if(currentLocationData.onEnter != undefined) {
+	  		this.execute(currentLocationData.onEnter);
+	  	}
+	  	
 	    this.currentLocation = location;
 	  }
 	}
@@ -61,5 +70,9 @@ function TextAdventure() {
 	this.isMatch = function(input,optionInput) {
 		regExp = new RegExp(optionInput,'i');
 		return regExp.test(input);
+	}
+	this.execute = function(codeStr) {
+		var data = data;
+	  (new Function(codeStr))();
 	}
 }
