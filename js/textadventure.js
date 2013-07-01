@@ -3,7 +3,7 @@ function TextAdventure() {
 	this.unkownMessages;	  // array containing possible responses to input we can't handle
 	this.currentLocation; 	// name of current spot
 
-	this.data;
+	this.data = {};
 	this.OUTPUT_EVENT = "output";
 	
 	// PUBLIC
@@ -64,7 +64,7 @@ function TextAdventure() {
 		this.output('Error: '+text);
 	}
 	this.output = function(text) {
-		$(document).trigger(this.OUTPUT_EVENT,text);
+		$(document).trigger("output",text);
 	}
 	
 	this.isMatch = function(input,optionInput) {
@@ -72,7 +72,6 @@ function TextAdventure() {
 		return regExp.test(input);
 	}
 	this.execute = function(codeStr) {
-		var data = data;
-	  (new Function(codeStr))();
+	  new Function("data","msg",codeStr) (this.data,this.output);
 	}
 }

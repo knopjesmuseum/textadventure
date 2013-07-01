@@ -12,12 +12,19 @@ locations:
         - goto lake
         - walk to lake
         - walk to the lake
+    onEnter: |
+      //msg("Hi New here");
   building: 
     output: |
       You're in the building. There are stairs to your left and a elevator to your right.
     onEnter: |
-      alert("welcome in the building "+new Date().getFullYear())
-      console.log(this);
+      //alert("welcome in the building "+new Date().getFullYear())
+      //console.log(this);
+      console.log(data);
+      if(!data.talkedToThatGuy) {
+      	//msg("A guy says: 'Hi! New here?'");
+      	data.talkedToThatGuy = true;
+      }
     exits: 
       building-stairs:
         - stairs
