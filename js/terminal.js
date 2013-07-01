@@ -5,7 +5,6 @@ function Terminal() {
 	this.inputSuffix = "_";
 	
 	this.currentLine;
-	this.printBuffer = "";
 	this.inputEnabled = false;
 	
 	Terminal.INPUT_EVENT = "input";
@@ -22,21 +21,20 @@ function Terminal() {
 		
 		currentLine = $("<p></p>");
 		this.container.append(currentLine);
-		this.printBuffer = text;
-		this.printNextChar();
+		this.printNextChar(currentLine,text);
 		
 		//this.container.append("<p>"+text+"</p>");
 		//console.log('  container: ',this.container);
 	}
 	
 	// PRIVATE
-	this.printNextChar = function() {
-		if(this.printBuffer.length > 0) {
-			var char = this.printBuffer.charAt(0);
-			this.printBuffer = this.printBuffer.slice(1);
+	this.printNextChar = function(currentLine,text) {
+		if(text.length > 0) {
+			var char = text.charAt(0);
+			text = text.slice(1);
 			currentLine.append(char);
 			var self = this;
-   		setTimeout(function() { self.printNextChar() } ,this.printDelay);
+   		setTimeout(function() { self.printNextChar(currentLine,text) } ,this.printDelay);
 		} else {
 			this.createInput();
 		}
