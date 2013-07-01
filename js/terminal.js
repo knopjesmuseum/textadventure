@@ -7,6 +7,8 @@ function Terminal() {
 	this.currentLine;
 	this.inputEnabled = false;
 	
+	this.numToPrint = 0;
+	
 	Terminal.INPUT_EVENT = "input";
 	
 	// PUBLIC
@@ -22,7 +24,7 @@ function Terminal() {
 		currentLine = $("<p></p>");
 		this.container.append(currentLine);
 		this.printNextChar(currentLine,text);
-		
+		this.numToPrint++;
 		//this.container.append("<p>"+text+"</p>");
 		//console.log('  container: ',this.container);
 	}
@@ -36,7 +38,10 @@ function Terminal() {
 			var self = this;
    		setTimeout(function() { self.printNextChar(currentLine,text) } ,this.printDelay);
 		} else {
-			this.createInput();
+			this.numToPrint--;
+			if(this.numToPrint == 0) {
+				this.createInput();
+			}
 		}
 		this.container.scrollTop(this.container.prop('scrollHeight'));
 	}

@@ -13,7 +13,7 @@ locations:
         - walk to lake
         - walk to the lake
     onEnter: |
-      //msg("Hi New here");
+      //msg("Hi! New here?");
   building: 
     output: |
       You're in the building. There are stairs to your left and a elevator to your right.
