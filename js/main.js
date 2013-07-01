@@ -25,8 +25,8 @@ $( document ).ready(function() {
     }
   });
   
-  $(document).on(textAdventure.OUTPUT_EVENT,handleOutput);
-  $(document).on(terminal.INPUT_EVENT,handleInput);
+  $(document).on(TextAdventure.OUTPUT_EVENT,handleOutput);
+  $(document).on(Terminal.INPUT_EVENT,handleInput);
 });
 
 function handleInput(event,text) {

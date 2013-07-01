@@ -4,7 +4,8 @@ function TextAdventure() {
 	this.currentLocation; 	// name of current spot
 
 	this.data = {};
-	this.OUTPUT_EVENT = "output";
+	
+	TextAdventure.OUTPUT_EVENT = "output";
 	
 	// PUBLIC
 	this.input = function(text) {
@@ -64,7 +65,7 @@ function TextAdventure() {
 		this.output('Error: '+text);
 	}
 	this.output = function(text) {
-		$(document).trigger("output",text);
+		$(document).trigger(TextAdventure.OUTPUT_EVENT,text);
 	}
 	
 	this.isMatch = function(input,optionInput) {

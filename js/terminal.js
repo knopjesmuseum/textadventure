@@ -8,7 +8,7 @@ function Terminal() {
 	this.printBuffer = "";
 	this.inputEnabled = false;
 	
-	this.INPUT_EVENT = "input";
+	Terminal.INPUT_EVENT = "input";
 	
 	// PUBLIC
 	this.init = function() {
@@ -87,6 +87,6 @@ function Terminal() {
 		var currentInput = this.getInput();
 		if(currentInput == "") return;
 		console.log("submit: '"+currentInput+"'");
-		$(document).trigger(this.INPUT_EVENT,currentInput);
+		$(document).trigger(Terminal.INPUT_EVENT,currentInput);
 	}
 }
