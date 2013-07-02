@@ -4,6 +4,8 @@ locations:
     output: |
       Welcome at the start. 
       You can enter the building or walk to the lake. 
+    onEnter: |
+      msg("It's the year "+new Date().getFullYear());
     exits: 
       building:
         - .*?building.*?
@@ -12,17 +14,31 @@ locations:
         - goto lake
         - walk to lake
         - walk to the lake
-    onEnter: |
-      msg("It's the year "+new Date().getFullYear());
   building: 
     output: |
       You're in the building. There are stairs to your left and a elevator to your right.
     onEnter: |
       console.log(data);
-      if(!data.talkedToThatGuy) {
-      	msg("A guy says: 'Hi! New here?'");
-      	data.talkedToThatGuy = true;
+      if(!data.enteredBuilding) {
+        msg("A guy says: 'Hi! New here?'");
+        data.enteredBuilding = true;
       }
+    commands: 
+      - inputs: 
+          - hello.*
+          - hi.*
+        content: |
+          if(!data.talkedToThatGuy) {
+            msg("Hi");
+            data.talkedToThatGuy = true;
+          } else {
+            msg("Hi again...");
+          }
+      - inputs: 
+          - how are you\?
+          - \?
+        content: |
+          msg("Pretty good");
     exits: 
       building-stairs:
         - stairs

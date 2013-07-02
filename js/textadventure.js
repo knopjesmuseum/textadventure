@@ -11,27 +11,53 @@ function TextAdventure() {
 	this.input = function(text) {
 		console.log('TextAdventure:input: ',text);
 		var currentLocationData = this.locationsData[this.currentLocation];
-		var validExit;
+		
 
 		// check exits
+		var validExit;
 		if(currentLocationData.exits != undefined) {
 			var self = this;
 			$.each(currentLocationData.exits,function(exit,content) {
 				console.log("  checking exit: ",exit);
-				$.each(content,function(index,exitCommand) {
-			  	console.log("    checking exitCommand: ",exitCommand);
-			  	if(self.isMatch(text,exitCommand)) {
+				// check inputs per exit
+				$.each(content,function(index,exitInput) {
+			  	console.log("    checking exitInput: ",exitInput);
+			  	if(self.isMatch(text,exitInput)) {
 			  		validExit = exit;
 			  		return false;
 			  	}
 				});
 			});
 		}
-		if(validExit == undefined) {
-		  this.outputUnknown();
-		} else {
-		  this.goto(validExit);
+		if(validExit) {
+			this.goto(validExit);
+			return;
 		}
+		
+		// check cmds
+		var validCmd;
+		if(currentLocationData.commands != undefined) {
+			var self = this;
+			$.each(currentLocationData.commands,function(index,cmdObj) {
+				console.log("  checking cmd: ",index);
+				// check inputs per cmd
+				$.each(cmdObj.inputs,function(index,cmdInput) {
+			  	console.log("    checking cmdInput: ",cmdInput);
+			  	if(self.isMatch(text,cmdInput)) {
+			  		console.log("      match");
+			  		validCmd = cmdObj.content;
+			  		return false;
+			  	} else {
+			  		console.log("      no match");
+			  	}
+				});
+			});
+		}
+		if(validCmd) {
+			this.execute(validCmd);
+			return;
+		}
+		this.outputUnknown();
 	}
 	
 	// PRIVATE
