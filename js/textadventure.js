@@ -1,17 +1,17 @@
 function TextAdventure() {
 	this.locationsData; 		// json locations data
-	this.unkownMessages;	  // array containing possible responses to input we can't handle
-	this.currentLocation; 	// name of current spot
+	this.unkownMessages;	  // Array containing possible responses to input we can't handle
+	this.currentLocation; 	// Name of current location
 
-	this.data = {};
+	this.data = {};				 	// Data container for commands in data
 	
+	// Events
 	TextAdventure.OUTPUT_EVENT = "output";
 	
 	// PUBLIC
 	this.input = function(text) {
 		console.log('TextAdventure:input: ',text);
 		var currentLocationData = this.locationsData[this.currentLocation];
-		
 
 		// check exits
 		var validExit;

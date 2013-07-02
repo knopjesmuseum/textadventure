@@ -1,16 +1,18 @@
 function Terminal() {
-	this.container; 			// DOM element to contain the terminal
+	this.container; 						// DOM element to contain the terminal
 	this.printDelay = 10; 			// DOM element to contain the terminal
-	this.inputPrefix = "> ";
-	this.inputSuffix = "_";
+	this.inputPrefix = "> ";		// String placed in front of user input
+	this.inputSuffix = "_";			// String placed behind user input, also the cursor
 	
-	this.buffer = [];
+	this.buffer = [];						// Array with strings that need to be printed
 	this.state;
+
+	// Events	
+	Terminal.INPUT_EVENT 			= "input";
 	
-	Terminal.INPUT_EVENT = "input";
-	
-	Terminal.PRINTING_STATE = "printing";
-	Terminal.LISTENING_STATE = "listening";
+	// States
+	Terminal.PRINTING_STATE 	= "printing";
+	Terminal.LISTENING_STATE 	= "listening";
 	
 	// PUBLIC
 	this.init = function() {
@@ -20,15 +22,11 @@ function Terminal() {
 	}
 	this.print = function(text) {
 		console.log('Terminal:print: ',text);
-		
 		this.buffer.push(text);
-		
 		if(this.state != Terminal.PRINTING_STATE) {
 			this.state = Terminal.PRINTING_STATE;
 			this.printNextParagraph();
 		}
-		//this.container.append("<p>"+text+"</p>");
-		//console.log('  container: ',this.container);
 	}
 	
 	// PRIVATE
