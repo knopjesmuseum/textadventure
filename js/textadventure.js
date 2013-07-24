@@ -91,6 +91,7 @@ function TextAdventure() {
 	}
 	
 	this.isMatch = function(input,options) {
+		//console.log('isMatch');
 		if(typeof options == "string") {
 			options = [options];
 		}

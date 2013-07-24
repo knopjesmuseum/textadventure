@@ -7,9 +7,9 @@ locations:
     onEnter: |
       msg("It's the year "+new Date().getFullYear());
     exits: 
-      building: building
+      building: .*?building.*?
       lake:
-        - lake
+        - .*?lake.*?
         - goto lake
         - walk to lake
         - walk to the lake

@@ -60,12 +60,18 @@ function Terminal() {
 		this.printInput('');
 		this.state = Terminal.LISTENING_STATE;
 	}
-	this.printInput = function(text) {
-		currentLine.text(this.inputPrefix + text + this.inputSuffix);
+	this.printInput = function(text,noPrefix,noSuffix) {
+		currentLine.text((noPrefix? '' : this.inputPrefix) + text + (noSuffix? '' : this.inputSuffix));
+		//currentLine.text(text);
 		this.container.scrollTop(this.container.prop('scrollHeight'));
 	}
 	this.getInput = function() {
-		return currentLine.text().slice(2,currentLine.text().length-1);
+		var text = currentLine.text();
+	  var prefixRegExp = new RegExp('^'+this.inputPrefix+'(.*)','i');
+	  var suffixRegExp = new RegExp('(.*?)'+this.inputSuffix+'$','i');
+	  text = text.replace(prefixRegExp,'$1');
+	  text = text.replace(suffixRegExp,'$1');
+	  return text;
 	}
 	this.handleInput = function(event) {
 		switch(event.keyCode) {
@@ -78,6 +84,7 @@ function Terminal() {
 		if(this.state == Terminal.LISTENING_STATE) {
 			switch(event.keyCode) {
 				case 13: // enter
+  				this.printInput(this.getInput(),false,true);
 					this.submitInput();
 					break;
 				case 8: //backspace
@@ -89,7 +96,9 @@ function Terminal() {
 					var char = String.fromCharCode(charCode);
 					var currentInput = this.getInput();
 					//console.log("input: ",char,currentInput);
-					this.printInput(currentInput+char);
+					this.printInput(currentInput + char);
+
+					this.getInput(); //temp
 					break;
 			}
 		}
