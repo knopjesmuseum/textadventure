@@ -58,6 +58,8 @@ generalCommands:
     - turn around
     content: |
       textadventure.goto(textadventure.prevLocation);
+    condition: |
+      textadventure.prevLocation != undefined
 
 messages:
   unknown:

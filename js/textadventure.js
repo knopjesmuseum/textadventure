@@ -39,8 +39,10 @@ function TextAdventure() {
 			$.each(currentLocationData.commands,function(index,cmdObj) {
 				console.log("  checking cmd: ",index);
 				if(self.isMatch(text,cmdObj.inputs)) {
-					validCmd = cmdObj.content;
-		  		return false;
+				  if(!cmdObj.condition || cmdObj.condition && self.check(cmdObj.condition)) {
+						validCmd = cmdObj.content;
+  		  		return false;
+  		    }
 				}
 			});
 		}
@@ -61,8 +63,10 @@ function TextAdventure() {
 			$.each(this.generalCommands,function(index,cmdObj) {
 				console.log("  checking cmd: ",index);
 				if(self.isMatch(text,cmdObj.inputs)) {
-					validGeneralCmd = cmdObj.content;
-		  		return false;
+  				if(!cmdObj.condition || cmdObj.condition && self.check(cmdObj.condition)) {
+						validGeneralCmd = cmdObj.content;
+						return false;
+					}
 				}
 			});
 		}
@@ -130,5 +134,10 @@ function TextAdventure() {
 	}
 	this.execute = function(codeStr) {
 	  new Function("data","msg","textadventure",codeStr) (this.data,this.output,this);
+	}
+	this.check = function(codeStr) {
+		console.log("check: ",codeStr);
+		codeStr = "return "+codeStr; 
+		return new Function("data","msg","textadventure",codeStr) (this.data,this.output,this);
 	}
 }
