@@ -22,7 +22,7 @@ locations:
         msg("A guy says: 'Hi! New here?'");
         data.enteredBuilding = true;
       }
-    commands: 
+    commands:
       - inputs: 
           - hello.*
           - hi.*
@@ -47,14 +47,22 @@ locations:
         - elevator
         - goto elevator
         - go right
-      start:
-        - .*?back
   building-elevator:
     output: |
       Elevator music is playing while your going up...
+
+generalCommands: 
+  - inputs: 
+    - go back
+    - back
+    - turn around
+    content: |
+      textadventure.goto(textadventure.prevLocation);
+
 messages:
   unknown:
     - Sorry I don't understand
     - What now?
     - Please try again
+
 ...

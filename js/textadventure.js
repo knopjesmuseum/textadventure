@@ -1,7 +1,9 @@
 function TextAdventure() {
 	this.locationsData; 		// json locations data
 	this.unkownMessages;	  // Array containing possible responses to input we can't handle
+	this.generalCommands		// Array with general commands (commands that can always be executed)
 	this.currentLocation; 	// Name of current location
+	this.prevLocation; 			// Name of previous location
 
 	this.data = {};				 	// Data container for commands in data
 	
@@ -52,11 +54,26 @@ function TextAdventure() {
 		// check objects releases from inventory
 		
 		// check general commands
+		var validGeneralCmd;
+		console.log("this.generalCommands: ",this.generalCommands)
+		if(this.generalCommands != undefined) {
+			var self = this;
+			$.each(this.generalCommands,function(index,cmdObj) {
+				console.log("  checking cmd: ",index);
+				if(self.isMatch(text,cmdObj.inputs)) {
+					validGeneralCmd = cmdObj.content;
+		  		return false;
+				}
+			});
+		}
+		if(validGeneralCmd) {
+			this.execute(validGeneralCmd);
+			return;
+		}
+
 		
 		this.outputUnknown();
 	}
-	
-	// PRIVATE
 	this.goto = function(location) {
 		console.log("goto location: ",location);
 		if(this.locationsData[location] == undefined) {
@@ -72,10 +89,12 @@ function TextAdventure() {
 	  	if(currentLocationData.onEnter != undefined) {
 	  		this.execute(currentLocationData.onEnter);
 	  	}
-	  	
+	  	this.prevLocation = this.currentLocation;
 	    this.currentLocation = location;
 	  }
 	}
+	
+	// PRIVATE
 	this.outputUnknown = function() {
 		console.log("outputUnknown");
 		var randomIndex = Math.round(Math.random()*(this.unkownMessages.length-1));
@@ -110,6 +129,6 @@ function TextAdventure() {
 		return match;
 	}
 	this.execute = function(codeStr) {
-	  new Function("data","msg",codeStr) (this.data,this.output);
+	  new Function("data","msg","textadventure",codeStr) (this.data,this.output,this);
 	}
 }
